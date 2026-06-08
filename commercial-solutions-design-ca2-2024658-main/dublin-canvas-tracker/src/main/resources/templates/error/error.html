@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Error – Dublin Canvas Tracker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body class="auth-page">
+<div class="auth-container">
+    <div class="auth-card" style="text-align:center;">
+        <div style="font-size:3rem; margin-bottom:1rem; color:#e94560;">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+        </div>
+        <h2 th:text="${status != null ? status + ' Error' : 'Something went wrong'}">Error</h2>
+        <p style="color:#6c757d; margin:1rem 0;"
+           th:text="${message != null ? message : 'An unexpected error occurred.'}"></p>
+        <a href="/dashboard" class="btn btn-primary">
+            <i class="fa-solid fa-house"></i> Go to Dashboard
+        </a>
+    </div>
+</div>
+</body>
+</html>

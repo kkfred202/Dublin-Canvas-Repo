@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Sign Up – Dublin Canvas Tracker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body class="auth-page">
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h1><i class="fa-solid fa-paintbrush"></i></h1>
+            <h2>Create Account</h2>
+            <p>Dublin Canvas Tracker</p>
+        </div>
+
+        <div th:if="${signupError}" class="alert alert-error" th:text="${signupError}"></div>
+
+        <form th:action="@{/signup}" th:object="${user}" method="post" class="auth-form">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+            <div class="form-group">
+                <label for="fullName">
+                    <i class="fa-solid fa-id-card"></i> Full Name
+                </label>
+                <input type="text" id="fullName" th:field="*{fullName}" class="form-control"
+                       th:classappend="${#fields.hasErrors('fullName')} ? 'is-invalid'"
+                       placeholder="Enter your full name"/>
+                <span th:if="${#fields.hasErrors('fullName')}"
+                      th:errors="*{fullName}" class="error-text"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="username">
+                    <i class="fa-solid fa-user"></i> Username
+                </label>
+                <input type="text" id="username" th:field="*{username}" class="form-control"
+                       th:classappend="${#fields.hasErrors('username')} ? 'is-invalid'"
+                       placeholder="Choose a username"/>
+                <span th:if="${#fields.hasErrors('username')}"
+                      th:errors="*{username}" class="error-text"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="email">
+                    <i class="fa-solid fa-envelope"></i> Email Address
+                </label>
+                <input type="text" id="email" th:field="*{email}" class="form-control"
+                       th:classappend="${#fields.hasErrors('email')} ? 'is-invalid'"
+                       placeholder="Enter your email"/>
+                <span th:if="${#fields.hasErrors('email')}"
+                      th:errors="*{email}" class="error-text"></span>
+            </div>
+
+            <div class="form-group">
+                <label for="password">
+                    <i class="fa-solid fa-lock"></i> Password
+                </label>
+                <input type="password" id="password" th:field="*{password}" class="form-control"
+                       th:classappend="${#fields.hasErrors('password')} ? 'is-invalid'"
+                       placeholder="Min. 6 characters"/>
+                <span th:if="${#fields.hasErrors('password')}"
+                      th:errors="*{password}" class="error-text"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-full">
+                <i class="fa-solid fa-user-plus"></i> Create Account
+            </button>
+        </form>
+
+        <div class="auth-footer">
+            <p>Already have an account? <a th:href="@{/login}">Log in here</a></p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

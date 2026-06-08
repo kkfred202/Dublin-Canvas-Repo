@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Artworks – Dublin Canvas Tracker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<th:block th:replace="~{fragments/navbar :: navbar}"></th:block>
+
+<div class="main-content">
+    <div class="page-header">
+        <h1><i class="fa-solid fa-images"></i> Street Artworks</h1>
+        <a th:href="@{/artworks/new}" class="btn btn-primary">
+            <i class="fa-solid fa-plus"></i> Add Artwork
+        </a>
+    </div>
+
+    <div th:if="${successMessage}" class="alert alert-success">
+        <i class="fa-solid fa-circle-check"></i>
+        <span th:text="${successMessage}"></span>
+    </div>
+
+    <div class="search-bar">
+        <form th:action="@{/artworks}" method="get">
+            <div class="search-group">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" name="search" class="form-control search-input"
+                       placeholder="Search by artist or area..."
+                       th:value="${search}"/>
+                <button type="submit" class="btn btn-secondary">
+                    <i class="fa-solid fa-magnifying-glass"></i> Search
+                </button>
+                <a th:href="@{/artworks}" class="btn btn-outline">
+                    <i class="fa-solid fa-xmark"></i> Clear
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <p class="result-count">
+        Showing <strong th:text="${totalCount}">0</strong> artworks
+        <span th:if="${search}"> matching "<em th:text="${search}"></em>"</span>
+    </p>
+
+    <div class="table-container">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Artist</th>
+                    <th>Title</th>
+                    <th>Area</th>
+                    <th>Year</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:if="${#lists.isEmpty(artworks)}">
+                    <td colspan="7" class="no-results">
+                        <i class="fa-solid fa-circle-exclamation"></i> No artworks found.
+                    </td>
+                </tr>
+                <tr th:each="art, stat : ${artworks}">
+                    <td th:text="${stat.count}">1</td>
+                    <td th:text="${art.artist}"></td>
+                    <td>
+                        <a th:href="@{/artworks/{id}(id=${art.id})}"
+                           th:text="${art.title}" class="table-link"></a>
+                    </td>
+                    <td th:text="${art.area != null ? art.area : '—'}"></td>
+                    <td th:text="${art.year != null ? art.year : '—'}"></td>
+                    <td>
+                        <span th:text="${art.status != null ? art.status : '—'}"
+                              th:classappend="${art.status == '1. Remain as is'} ? 'badge-green' :
+                                             (${art.status == '2. Painted Over'} ? 'badge-red' : 'badge-grey')"
+                              class="badge"></span>
+                    </td>
+                    <td class="actions-cell">
+                        <a th:href="@{/artworks/{id}(id=${art.id})}" class="btn btn-sm btn-info">
+                            <i class="fa-solid fa-eye"></i> View
+                        </a>
+                        <a th:href="@{/artworks/{id}/edit(id=${art.id})}" class="btn btn-sm btn-warning">
+                            <i class="fa-solid fa-pen"></i> Edit
+                        </a>
+                        <a th:href="@{/artworks/{id}/delete(id=${art.id})}" class="btn btn-sm btn-danger">
+                            <i class="fa-solid fa-trash"></i> Delete
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

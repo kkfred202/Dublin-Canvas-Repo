@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Dashboard – Dublin Canvas Tracker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<th:block th:replace="~{fragments/navbar :: navbar}"></th:block>
+
+<div class="main-content">
+    <div class="page-header">
+        <div>
+            <h1><i class="fa-solid fa-gauge"></i> Dashboard</h1>
+            <p>Welcome back, <strong th:text="${username}">User</strong>!</p>
+        </div>
+    </div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fa-solid fa-image"></i></div>
+            <div class="stat-info">
+                <h3 th:text="${totalArtworks}">0</h3>
+                <p>Total Artworks</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div class="stat-info">
+                <h3>Dublin</h3>
+                <p>City Coverage</p>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon"><i class="fa-solid fa-palette"></i></div>
+            <div class="stat-info">
+                <h3>Street Art</h3>
+                <p>Public Murals</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2><i class="fa-solid fa-bolt"></i> Quick Actions</h2>
+        <div class="action-grid">
+            <a th:href="@{/artworks}" class="action-card">
+                <span class="action-icon"><i class="fa-solid fa-list"></i></span>
+                <span>View All Artworks</span>
+            </a>
+            <a th:href="@{/artworks/new}" class="action-card">
+                <span class="action-icon"><i class="fa-solid fa-plus"></i></span>
+                <span>Add New Artwork</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2><i class="fa-solid fa-circle-info"></i> About This System</h2>
+        <div class="info-card">
+            <p>
+                The <strong>Dublin Canvas Tracker</strong> is a management system for tracking
+                public street art and murals across Dublin. The dataset is sourced from
+                <a href="https://www.dublincanvas.com" target="_blank">dublincanvas.com</a>
+                and <a href="https://data.gov.ie" target="_blank">data.gov.ie</a>.
+            </p>
+            <p>
+                Authenticated users can create, view, edit, and delete artwork records
+                including artist details, location, area, year created, and current status.
+            </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title th:text="${artwork.title + ' – Dublin Canvas Tracker'}">Detail</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<th:block th:replace="~{fragments/navbar :: navbar}"></th:block>
+
+<div class="main-content">
+    <div class="page-header">
+        <h1><i class="fa-solid fa-image"></i> <span th:text="${artwork.title}">Artwork Title</span></h1>
+        <div class="header-actions">
+            <a th:href="@{/artworks/{id}/edit(id=${artwork.id})}" class="btn btn-warning">
+                <i class="fa-solid fa-pen"></i> Edit
+            </a>
+            <a th:href="@{/artworks/{id}/delete(id=${artwork.id})}" class="btn btn-danger">
+                <i class="fa-solid fa-trash"></i> Delete
+            </a>
+            <a th:href="@{/artworks}" class="btn btn-outline">
+                <i class="fa-solid fa-arrow-left"></i> Back to List
+            </a>
+        </div>
+    </div>
+
+    <div class="detail-card">
+        <table class="detail-table">
+            <tr>
+                <th><i class="fa-solid fa-user"></i> Artist</th>
+                <td th:text="${artwork.artist}"></td>
+            </tr>
+            <tr>
+                <th><i class="fa-solid fa-heading"></i> Title</th>
+                <td th:text="${artwork.title}"></td>
+            </tr>
+            <tr>
+                <th><i class="fa-solid fa-building-columns"></i> Council</th>
+                <td th:text="${artwork.council}"></td>
+            </tr>
+            <tr>
+                <th><i class="fa-solid fa-map-marker-alt"></i> Location</th>
+                <td th:text="${artwork.location}"></td>
+            </tr>
+            <tr>
+                <th><i class="fa-solid fa-map"></i> Area</th>
+                <td th:text="${artwork.area != null ? artwork.area : '—'}"></td>
+            </tr>
+            <tr>
+                <th><i class="fa-solid fa-calendar"></i> Year</th>
+                <td th:text="${artwork.year != null ? artwork.year : '—'}"></td>
+            </tr>
+            <tr>
+                <th><i class="fa-solid fa-circle-dot"></i> Status</th>
+                <td th:text="${artwork.status != null ? artwork.status : '—'}"></td>
+            </tr>
+            <tr>
+                <th><i class="fa-solid fa-globe"></i> Website Profile</th>
+                <td>
+                    <a th:if="${artwork.website != null and !artwork.website.isEmpty()}"
+                       th:href="${artwork.website}" th:text="${artwork.website}"
+                       target="_blank"></a>
+                    <span th:unless="${artwork.website != null and !artwork.website.isEmpty()}">—</span>
+                </td>
+            </tr>
+            <tr>
+                <th><i class="fa-solid fa-location-crosshairs"></i> Latitude</th>
+                <td th:text="${artwork.latitude != null ? artwork.latitude : '—'}"></td>
+            </tr>
+            <tr>
+                <th><i class="fa-solid fa-location-crosshairs"></i> Longitude</th>
+                <td th:text="${artwork.longitude != null ? artwork.longitude : '—'}"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

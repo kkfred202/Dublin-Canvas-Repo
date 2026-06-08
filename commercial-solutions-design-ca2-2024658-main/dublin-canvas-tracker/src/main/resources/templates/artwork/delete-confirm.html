@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Delete Artwork – Dublin Canvas Tracker</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<th:block th:replace="~{fragments/navbar :: navbar}"></th:block>
+
+<div class="main-content">
+    <div class="confirm-container">
+        <div class="confirm-card">
+            <div class="confirm-icon">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+            <h2>Delete Artwork</h2>
+            <p>Are you sure you want to delete the following artwork?</p>
+
+            <div class="confirm-details">
+                <strong th:text="${artwork.title}">Title</strong><br/>
+                <span>by </span><span th:text="${artwork.artist}">Artist</span><br/>
+                <span th:text="${artwork.location}">Location</span>
+            </div>
+
+            <p class="confirm-warning">
+                <i class="fa-solid fa-circle-exclamation"></i> This action cannot be undone.
+            </p>
+
+            <div class="confirm-actions">
+                <form th:action="@{/artworks/{id}/delete(id=${artwork.id})}" method="post">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fa-solid fa-trash"></i> Yes, Delete
+                    </button>
+                </form>
+                <a th:href="@{/artworks}" class="btn btn-outline">
+                    <i class="fa-solid fa-xmark"></i> Cancel
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
