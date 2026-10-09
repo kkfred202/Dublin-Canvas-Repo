@@ -40,6 +40,6 @@ Three-tier MVC — Browser talks to Spring Security, which routes to Controllers
 
 ## Author
 
-Fredrick Kimutai — Student Number 2024658
+Fredrick Kimutai — Student Number
 BSc in Computing in IT, CCT College Dublin
 Dataset sourced from data.gov.ie — Dublin Canvas, Dublin City Council
